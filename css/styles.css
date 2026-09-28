@@ -1,15 +1,44 @@
-:root {
-  --ocean: #0e7490;
-  --ocean-dark: #0a4a5c;
-  --coral: #ff6b5b;
-  --sand: #f7ead0;
-  --sand-dark: #e8d3a5;
-  --seafoam: #4fd1c5;
-  --white: #ffffff;
-  --ink: #1f2a30;
+:root,
+:root[data-theme="light"] {
+  --bg: #f4f6f8;
+  --card-bg: #ffffff;
+  --text: #16232f;
+  --muted: #64748b;
+  --border: #e6ebf0;
+  --shadow: 0 8px 24px rgba(0, 51, 102, 0.12);
+  --primary: #003366;
+  --accent: #cc0000;
+  --accent-soft: #fff4f4;
+  --accent-soft-border: #ffd4d4;
+  --info-soft: #eef4fb;
+  --info-soft-border: #cfe0f1;
+  --tip-bg: #fff8e8;
+  --tip-border: #ffe1a8;
   --radius: 14px;
-  --shadow: 0 8px 24px rgba(14, 116, 144, 0.14);
   font-size: 16px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b1622;
+  --card-bg: #12233a;
+  --text: #eaf1f8;
+  --muted: #93a8bd;
+  --border: #22374f;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --primary: #6fb3e8;
+  --accent: #ff6b6b;
+  --accent-soft: #2b1414;
+  --accent-soft-border: #4a1f1f;
+  --info-soft: #10202f;
+  --info-soft-border: #1c3348;
+  --tip-bg: #241d0f;
+  --tip-border: #4a3a17;
+}
+
+/* Header keeps FAU brand colors constant across themes */
+:root {
+  --header-start: #003366;
+  --header-end: #001f3d;
 }
 
 * {
@@ -19,11 +48,12 @@
 body {
   margin: 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: linear-gradient(180deg, var(--sand) 0%, #fdf6e6 40%, var(--sand) 100%);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .visually-hidden {
@@ -37,9 +67,9 @@ body {
 
 /* Header */
 .site-header {
-  background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-dark) 100%);
-  border-bottom: 5px solid var(--coral);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--header-start) 0%, var(--header-end) 100%);
+  border-bottom: 5px solid #cc0000;
+  color: #ffffff;
 }
 
 .header-inner {
@@ -77,10 +107,17 @@ body {
   opacity: 0.85;
 }
 
-.unit-toggle {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.unit-toggle,
+.theme-toggle {
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.35);
-  color: var(--white);
+  color: #ffffff;
   border-radius: 999px;
   padding: 0.4rem 0.9rem;
   cursor: pointer;
@@ -89,6 +126,12 @@ body {
   display: flex;
   gap: 0.35rem;
   align-items: center;
+}
+
+.theme-toggle {
+  padding: 0.4rem 0.65rem;
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .unit-toggle .divider {
@@ -102,8 +145,8 @@ body {
 
 .unit-toggle span[data-unit].active {
   opacity: 1;
-  color: var(--coral);
-  background: var(--white);
+  color: var(--accent);
+  background: #ffffff;
   border-radius: 999px;
 }
 
@@ -117,26 +160,48 @@ body {
 }
 
 .card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 /* Welcome banner */
 .welcome-banner {
-  background: linear-gradient(120deg, var(--seafoam) 0%, var(--ocean) 100%);
-  color: var(--white);
+  background: linear-gradient(120deg, var(--header-start) 0%, var(--header-end) 100%);
+  color: #ffffff;
   border-radius: var(--radius);
   padding: 1rem 1.25rem;
   margin-bottom: 1.25rem;
   box-shadow: var(--shadow);
   font-size: 1.05rem;
   font-weight: 600;
+  border-left: 4px solid var(--accent);
 }
 
 .welcome-banner span.wave {
   display: inline-block;
   margin-right: 0.3rem;
+}
+
+/* Daily tip */
+.daily-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--tip-bg);
+  border: 1px solid var(--tip-border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.98rem;
+  color: var(--text);
+}
+
+.daily-tip .tip-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 /* Search */
@@ -155,13 +220,15 @@ body {
   flex: 1 1 240px;
   padding: 0.75rem 1rem;
   border-radius: 999px;
-  border: 1.5px solid var(--sand-dark);
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
   font-size: 1rem;
   outline-offset: 2px;
 }
 
 #city-input:focus {
-  border-color: var(--ocean);
+  border-color: var(--primary);
 }
 
 #search-form button {
@@ -179,14 +246,14 @@ body {
 }
 
 #search-form button[type="submit"] {
-  background: var(--coral);
-  color: var(--white);
+  background: var(--accent);
+  color: #ffffff;
 }
 
 #locate-btn {
-  background: var(--white);
-  color: var(--ocean);
-  border: 1.5px solid var(--ocean) !important;
+  background: var(--card-bg);
+  color: var(--primary);
+  border: 1.5px solid var(--primary) !important;
 }
 
 .suggestions {
@@ -195,8 +262,9 @@ body {
   padding: 0.3rem;
   position: absolute;
   z-index: 10;
-  background: var(--white);
+  background: var(--card-bg);
   width: 100%;
+  border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: var(--shadow);
   max-height: 260px;
@@ -212,7 +280,7 @@ body {
 
 .suggestions li:hover,
 .suggestions li:focus {
-  background: var(--sand);
+  background: var(--bg);
 }
 
 .hidden {
@@ -223,17 +291,17 @@ body {
 .status {
   padding: 0.9rem 1.1rem;
   border-radius: 10px;
-  background: #fff0ed;
-  color: var(--coral);
-  border: 1px solid #ffd6cf;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-soft-border);
   margin-bottom: 1.25rem;
   font-size: 0.95rem;
 }
 
 .status.loading {
-  background: #e6f6f4;
-  color: var(--ocean);
-  border-color: #c8ede8;
+  background: var(--info-soft);
+  color: var(--primary);
+  border-color: var(--info-soft-border);
 }
 
 /* Current weather */
@@ -253,13 +321,13 @@ body {
 .current-location h2 {
   margin: 0;
   font-family: "Merriweather", Georgia, serif;
-  color: var(--ocean);
+  color: var(--primary);
   font-size: 1.6rem;
 }
 
 .current-location p {
   margin: 0.25rem 0 0;
-  color: #7a8a90;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -277,14 +345,14 @@ body {
 .current-temp {
   font-size: 3.25rem;
   font-weight: 700;
-  color: var(--coral);
+  color: var(--accent);
   font-family: "Merriweather", Georgia, serif;
 }
 
 .current-desc {
   margin: 0.5rem 0 1.25rem;
   font-size: 1.1rem;
-  color: var(--ink);
+  color: var(--text);
   font-weight: 500;
 }
 
@@ -292,7 +360,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
-  border-top: 1px solid var(--sand);
+  border-top: 1px solid var(--border);
   padding-top: 1.25rem;
 }
 
@@ -306,20 +374,20 @@ body {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #a99b7a;
+  color: var(--muted);
   font-weight: 600;
 }
 
 .detail-value {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--ocean);
+  color: var(--primary);
 }
 
 /* Forecast */
 .forecast h3 {
   font-family: "Merriweather", Georgia, serif;
-  color: var(--ocean);
+  color: var(--primary);
   margin: 0 0 1rem;
 }
 
@@ -330,17 +398,18 @@ body {
 }
 
 .forecast-day {
-  background: var(--white);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1rem 0.75rem;
   text-align: center;
-  border-bottom: 3px solid var(--coral);
+  border-bottom: 3px solid var(--accent);
 }
 
 .forecast-day .day-name {
   font-weight: 700;
-  color: var(--ocean);
+  color: var(--primary);
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }
@@ -357,17 +426,17 @@ body {
 
 .forecast-day .day-high {
   font-weight: 700;
-  color: var(--coral);
+  color: var(--accent);
 }
 
 .forecast-day .day-low {
-  color: #7a8a90;
+  color: var(--muted);
 }
 
 .forecast-day .day-precip {
   margin-top: 0.35rem;
   font-size: 0.78rem;
-  color: var(--seafoam);
+  color: var(--primary);
 }
 
 /* Footer */
@@ -375,11 +444,11 @@ body {
   text-align: center;
   padding: 1.5rem 1rem;
   font-size: 0.82rem;
-  color: #7a8a90;
+  color: var(--muted);
 }
 
 .site-footer a {
-  color: var(--ocean);
+  color: var(--primary);
 }
 
 @media (max-width: 480px) {

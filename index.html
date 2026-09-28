@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Emma's Beach Weather</title>
-  <meta name="description" content="Live weather for Boca Raton and beyond, powered by Open-Meteo, with a beachy theme." />
+  <title>FAU Owls Weather</title>
+  <meta name="description" content="Live weather for Boca Raton and beyond, powered by Open-Meteo, themed for FAU Owls with light and dark mode." />
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,17 +15,20 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <img src="assets/logo.svg" alt="Beach weather logo" class="brand-logo" />
+        <img src="assets/logo.svg" alt="FAU Owls Weather logo" class="brand-logo" />
         <div class="brand-text">
-          <h1>Emma's Beach Weather</h1>
-          <p>Sun, sand &amp; forecasts &bull; Boca Raton, FL</p>
+          <h1>FAU Owls Weather</h1>
+          <p>Emma's Forecast &bull; Boca Raton, FL</p>
         </div>
       </div>
-      <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false">
-        <span data-unit="F" class="active">&deg;F</span>
-        <span class="divider">/</span>
-        <span data-unit="C">&deg;C</span>
-      </button>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle light/dark mode">🌙</button>
+        <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false">
+          <span data-unit="F" class="active">&deg;F</span>
+          <span class="divider">/</span>
+          <span data-unit="C">&deg;C</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -76,6 +79,11 @@
       </div>
     </section>
 
+    <section id="daily-tip" class="daily-tip card hidden" aria-live="polite">
+      <span id="tip-icon" class="tip-icon">💡</span>
+      <span id="tip-text"></span>
+    </section>
+
     <section id="forecast" class="forecast hidden" aria-label="7 day forecast">
       <h3>7-Day Forecast</h3>
       <div id="forecast-list" class="forecast-list"></div>
@@ -83,7 +91,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Made with 🌊 for Emma.</p>
+    <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Made for Emma &bull; Go Owls! 🦉</p>
   </footer>
 
   <script src="js/app.js"></script>

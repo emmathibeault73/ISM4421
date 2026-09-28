@@ -1,6 +1,6 @@
-# Emma's Beach Weather 🌊
+# FAU Owls Weather 🦉
 
-A lightweight, beach-themed weather app built with plain HTML/CSS/JS and the free
+A lightweight, FAU-themed weather app built with plain HTML/CSS/JS and the free
 [Open-Meteo](https://open-meteo.com/) API (no API key or login required).
 
 Defaults to **Boca Raton, FL** and lets you search any city or use your
@@ -8,22 +8,29 @@ current location.
 
 ## Features
 
-- Personalized welcome banner with a time-of-day greeting
+- Personalized welcome banner with a time-of-day greeting and a rotating
+  "good luck in class" message
+- A daily tip card with fun, weather-based suggestions (nice out → hit the
+  beach; rainy → stay in and study; hot → stay hydrated; cold → grab a
+  jacket, etc.)
+- Light mode / dark mode toggle (remembers your choice, defaults to your
+  system preference)
 - Current conditions: temperature, feels-like, humidity, wind, precipitation
 - 7-day forecast
 - City search with autocomplete (Open-Meteo Geocoding API)
 - "Use my location" geolocation button
 - °F / °C toggle
-- Beachy theme: ocean teal, coral sunset, sandy tones
+- FAU Blue (`#003366`) / FAU Red (`#CC0000`) theme, consistent across both
+  light and dark modes
 - No build step, no dependencies, no API keys — just static files
 
 ## Project structure
 
 ```
 index.html        Main page
-css/styles.css     FAU-themed styles
-js/app.js          App logic (fetches Open-Meteo APIs)
-assets/logo.svg    Placeholder owl logo (swap with FAU's official licensed logo if you have one)
+css/styles.css     FAU-themed styles with light/dark theme variables
+js/app.js          App logic (fetches Open-Meteo APIs, theme + tip logic)
+assets/logo.svg    Placeholder FAU owl logo (swap with FAU's official licensed logo if you have one)
 netlify.toml       Netlify deploy config
 ```
 
@@ -70,6 +77,11 @@ free and keyless.
 
 ## Notes on branding
 
-The logo in `assets/logo.svg` is an original sun-and-waves mark. The welcome
-message and theme are personalized for Emma — update `USER_NAME` in
-`js/app.js` to change who it greets.
+The logo in `assets/logo.svg` is an original placeholder mark in FAU's
+colors, not FAU's official trademarked logo. Swap it out for the official
+FAU logo file if you have appropriate usage rights, and this isn't an
+official university website.
+
+The welcome message and daily tips are personalized for Emma — update
+`USER_NAME`, `GOOD_LUCK_MESSAGES`, and `TIP_POOLS` in `js/app.js` to
+customize them.

@@ -44,11 +44,59 @@
   };
 
   const USER_NAME = "Emma";
+  const THEME_KEY = "fau-weather-theme";
 
-  const BEACH_DAY_CODES = new Set([0, 1, 2]);
+  const SUNNY_CODES = new Set([0, 1]);
+  const CLOUDY_CODES = new Set([2, 3]);
+  const FOG_CODES = new Set([45, 48]);
+  const RAIN_CODES = new Set([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82]);
+  const STORM_CODES = new Set([95, 96, 99]);
+  const SNOW_CODES = new Set([71, 73, 75, 77, 85, 86]);
+
+  const GOOD_LUCK_MESSAGES = [
+    "Good luck in class today! 🦉",
+    "You've got this, Owl! Crush those classes today.",
+    "Wishing you a great day on campus!",
+    "Ace that quiz today &mdash; go Owls!",
+    "Hope your classes fly by today 🦉",
+    "One more day closer to the weekend &mdash; you've got this!",
+  ];
+
+  const TIP_POOLS = {
+    sunny: [
+      { icon: "🏖️", text: "It's beautiful out &mdash; perfect day to hit the beach after class!" },
+      { icon: "☀️", text: "Gorgeous weather today. Maybe take your notes outside and study on the lawn?" },
+      { icon: "🕶️", text: "Sunshine alert! Squeeze in a study break at the beach." },
+    ],
+    cloudy: [
+      { icon: "⛅", text: "Nice mix of sun and clouds &mdash; a great day for a walk between classes." },
+      { icon: "☁️", text: "A little gray out there &mdash; cozy library study session, anyone?" },
+    ],
+    fog: [
+      { icon: "🌫️", text: "Foggy out there &mdash; give yourself extra time getting to class." },
+    ],
+    rain: [
+      { icon: "📚", text: "It's rainy &mdash; perfect excuse to stay in and get ahead on homework." },
+      { icon: "☔", text: "Grab an umbrella! Or just stay cozy and hit the books instead." },
+      { icon: "🌧️", text: "Rainy day, productive day &mdash; library time?" },
+    ],
+    storm: [
+      { icon: "⛈️", text: "Thunderstorms today &mdash; best to stay indoors and knock out some studying." },
+    ],
+    snow: [
+      { icon: "❄️", text: "Snow in Boca?! Stay cozy inside and get some reading done." },
+    ],
+  };
+
+  const HOT_TIP = { icon: "🥵", text: "It's toasty out there &mdash; stay hydrated between classes!" };
+  const COLD_TIP = { icon: "🧥", text: "Bit chilly today &mdash; grab a light jacket before heading to campus." };
 
   const els = {
     welcomeBanner: document.getElementById("welcome-banner"),
+    themeToggle: document.getElementById("theme-toggle"),
+    dailyTip: document.getElementById("daily-tip"),
+    tipIcon: document.getElementById("tip-icon"),
+    tipText: document.getElementById("tip-text"),
     form: document.getElementById("search-form"),
     input: document.getElementById("city-input"),
     suggestions: document.getElementById("suggestions"),
@@ -85,19 +133,72 @@
     return "Good evening";
   }
 
-  function renderWelcome(loc, data) {
-    const greeting = timeGreeting();
-    if (!data) {
-      els.welcomeBanner.innerHTML = `<span class="wave">🌊</span> ${greeting}, ${USER_NAME}!`;
-      return;
-    }
-    const code = data.current.weather_code;
-    const isBeachDay = BEACH_DAY_CODES.has(code) && data.current.temperature_2m >= (unit === "fahrenheit" ? 75 : 24);
-    const tail = isBeachDay
-      ? "looks like a perfect beach day ☀️"
-      : "here's your forecast for " + locationLabel(loc);
-    els.welcomeBanner.innerHTML = `<span class="wave">🌊</span> ${greeting}, ${USER_NAME} &mdash; ${tail}`;
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
+
+  function renderWelcome() {
+    const greeting = timeGreeting();
+    const goodLuck = pickRandom(GOOD_LUCK_MESSAGES);
+    els.welcomeBanner.innerHTML = `<span class="wave">🦉</span> ${greeting}, ${USER_NAME}! ${goodLuck}`;
+  }
+
+  function tipPoolForCode(code) {
+    if (SUNNY_CODES.has(code)) return TIP_POOLS.sunny;
+    if (CLOUDY_CODES.has(code)) return TIP_POOLS.cloudy;
+    if (FOG_CODES.has(code)) return TIP_POOLS.fog;
+    if (RAIN_CODES.has(code)) return TIP_POOLS.rain;
+    if (STORM_CODES.has(code)) return TIP_POOLS.storm;
+    if (SNOW_CODES.has(code)) return TIP_POOLS.snow;
+    return TIP_POOLS.cloudy;
+  }
+
+  function renderDailyTip(data) {
+    const c = data.current;
+    const hotThreshold = unit === "fahrenheit" ? 90 : 32;
+    const coldThreshold = unit === "fahrenheit" ? 55 : 13;
+
+    let tip;
+    if (c.temperature_2m >= hotThreshold) {
+      tip = HOT_TIP;
+    } else if (c.temperature_2m <= coldThreshold) {
+      tip = COLD_TIP;
+    } else {
+      tip = pickRandom(tipPoolForCode(c.weather_code));
+    }
+
+    els.tipIcon.textContent = tip.icon;
+    els.tipText.innerHTML = tip.text;
+    els.dailyTip.classList.remove("hidden");
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    els.themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    els.themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  }
+
+  function initTheme() {
+    let saved = null;
+    try {
+      saved = localStorage.getItem(THEME_KEY);
+    } catch (err) {
+      // localStorage unavailable; fall back to light theme
+    }
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+  }
+
+  els.themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const next = current === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch (err) {
+      // ignore write failures (private browsing, etc.)
+    }
+  });
 
   function showStatus(message, isLoading) {
     els.status.textContent = message;
@@ -178,7 +279,7 @@
     els.precip.textContent = `${c.precipitation ?? 0} ${precipUnit}`;
 
     els.current.classList.remove("hidden");
-    renderWelcome(loc, data);
+    renderDailyTip(data);
   }
 
   function renderForecast(data) {
@@ -324,6 +425,7 @@
     loadWeatherFor(currentLocation);
   });
 
-  renderWelcome(DEFAULT_LOCATION, null);
+  initTheme();
+  renderWelcome();
   loadWeatherFor(DEFAULT_LOCATION);
 })();
