@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAU Weather | Owls Forecast</title>
+  <meta name="description" content="Live weather for Boca Raton and beyond, powered by Open-Meteo, themed for FAU Owls." />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="FAU Weather logo" class="brand-logo" />
+        <div class="brand-text">
+          <h1>FAU Weather</h1>
+          <p>Owls Forecast &bull; Boca Raton, FL</p>
+        </div>
+      </div>
+      <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false">
+        <span data-unit="F" class="active">&deg;F</span>
+        <span class="divider">/</span>
+        <span data-unit="C">&deg;C</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-panel" aria-label="Location search">
+      <form id="search-form" autocomplete="off">
+        <label for="city-input" class="visually-hidden">Search for a city</label>
+        <input id="city-input" type="text" placeholder="Search a city (e.g. Boca Raton, FL)" aria-label="City search" />
+        <button type="submit">Search</button>
+        <button type="button" id="locate-btn" title="Use my current location">📍 My Location</button>
+      </form>
+      <ul id="suggestions" class="suggestions hidden"></ul>
+    </section>
+
+    <section id="status" class="status hidden" role="status" aria-live="polite"></section>
+
+    <section id="current-weather" class="current-weather card hidden">
+      <div class="current-main">
+        <div class="current-location">
+          <h2 id="location-name">Boca Raton, FL</h2>
+          <p id="current-datetime"></p>
+        </div>
+        <div class="current-temp-block">
+          <span id="current-icon" class="weather-icon">☀️</span>
+          <span id="current-temp" class="current-temp">--&deg;</span>
+        </div>
+      </div>
+      <p id="current-desc" class="current-desc">--</p>
+      <div class="current-details">
+        <div class="detail">
+          <span class="detail-label">Feels Like</span>
+          <span id="feels-like" class="detail-value">--&deg;</span>
+        </div>
+        <div class="detail">
+          <span class="detail-label">Humidity</span>
+          <span id="humidity" class="detail-value">--%</span>
+        </div>
+        <div class="detail">
+          <span class="detail-label">Wind</span>
+          <span id="wind" class="detail-value">-- mph</span>
+        </div>
+        <div class="detail">
+          <span class="detail-label">Precipitation</span>
+          <span id="precip" class="detail-value">-- in</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="forecast" class="forecast hidden" aria-label="7 day forecast">
+      <h3>7-Day Forecast</h3>
+      <div id="forecast-list" class="forecast-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Not an official FAU website &mdash; fan-built forecast app for the Owls community.</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+:root {
+  --fau-blue: #003366;
+  --fau-blue-dark: #001f3d;
+  --fau-red: #cc0000;
+  --fau-white: #ffffff;
+  --fau-grey: #f4f6f8;
+  --fau-text: #16232f;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0, 51, 102, 0.12);
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--fau-grey);
+  color: var(--fau-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(135deg, var(--fau-blue) 0%, var(--fau-blue-dark) 100%);
+  border-bottom: 5px solid var(--fau-red);
+  color: var(--fau-white);
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.brand-text h1 {
+  font-family: "Merriweather", Georgia, serif;
+  font-size: 1.5rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.brand-text p {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.unit-toggle {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--fau-white);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.unit-toggle .divider {
+  opacity: 0.5;
+}
+
+.unit-toggle span[data-unit] {
+  opacity: 0.55;
+  padding: 0.1rem 0.25rem;
+}
+
+.unit-toggle span[data-unit].active {
+  opacity: 1;
+  color: var(--fau-red);
+  background: var(--fau-white);
+  border-radius: 999px;
+}
+
+/* Layout */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  width: 100%;
+  flex: 1;
+}
+
+.card {
+  background: var(--fau-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Search */
+.search-panel {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+#search-form {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+#city-input {
+  flex: 1 1 240px;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 1rem;
+  outline-offset: 2px;
+}
+
+#city-input:focus {
+  border-color: var(--fau-blue);
+}
+
+#search-form button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+
+#search-form button:active {
+  transform: scale(0.97);
+}
+
+#search-form button[type="submit"] {
+  background: var(--fau-red);
+  color: var(--fau-white);
+}
+
+#locate-btn {
+  background: var(--fau-white);
+  color: var(--fau-blue);
+  border: 1.5px solid var(--fau-blue) !important;
+}
+
+.suggestions {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0.3rem;
+  position: absolute;
+  z-index: 10;
+  background: var(--fau-white);
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.suggestions li {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.suggestions li:hover,
+.suggestions li:focus {
+  background: var(--fau-grey);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Status */
+.status {
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  background: #fff4f4;
+  color: var(--fau-red);
+  border: 1px solid #ffd4d4;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.status.loading {
+  background: #eef4fb;
+  color: var(--fau-blue);
+  border-color: #cfe0f1;
+}
+
+/* Current weather */
+.current-weather {
+  padding: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.current-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.current-location h2 {
+  margin: 0;
+  font-family: "Merriweather", Georgia, serif;
+  color: var(--fau-blue);
+  font-size: 1.6rem;
+}
+
+.current-location p {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.current-temp-block {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.weather-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.current-temp {
+  font-size: 3.25rem;
+  font-weight: 700;
+  color: var(--fau-red);
+  font-family: "Merriweather", Georgia, serif;
+}
+
+.current-desc {
+  margin: 0.5rem 0 1.25rem;
+  font-size: 1.1rem;
+  color: var(--fau-text);
+  font-weight: 500;
+}
+
+.current-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  border-top: 1px solid #e6ebf0;
+  padding-top: 1.25rem;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fau-blue);
+}
+
+/* Forecast */
+.forecast h3 {
+  font-family: "Merriweather", Georgia, serif;
+  color: var(--fau-blue);
+  margin: 0 0 1rem;
+}
+
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.85rem;
+}
+
+.forecast-day {
+  background: var(--fau-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 0.75rem;
+  text-align: center;
+  border-bottom: 3px solid var(--fau-red);
+}
+
+.forecast-day .day-name {
+  font-weight: 700;
+  color: var(--fau-blue);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.forecast-day .day-icon {
+  font-size: 1.9rem;
+  margin: 0.2rem 0;
+}
+
+.forecast-day .day-temps {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.forecast-day .day-high {
+  font-weight: 700;
+  color: var(--fau-red);
+}
+
+.forecast-day .day-low {
+  color: #64748b;
+}
+
+.forecast-day .day-precip {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: #3b82f6;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.site-footer a {
+  color: var(--fau-blue);
+}
+
+@media (max-width: 480px) {
+  .current-temp {
+    font-size: 2.5rem;
+  }
+  .weather-icon {
+    font-size: 2.3rem;
+  }
+}
