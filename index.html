@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAU Weather | Owls Forecast</title>
-  <meta name="description" content="Live weather for Boca Raton and beyond, powered by Open-Meteo, themed for FAU Owls." />
+  <title>Emma's Beach Weather</title>
+  <meta name="description" content="Live weather for Boca Raton and beyond, powered by Open-Meteo, with a beachy theme." />
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,10 +15,10 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <img src="assets/logo.svg" alt="FAU Weather logo" class="brand-logo" />
+        <img src="assets/logo.svg" alt="Beach weather logo" class="brand-logo" />
         <div class="brand-text">
-          <h1>FAU Weather</h1>
-          <p>Owls Forecast &bull; Boca Raton, FL</p>
+          <h1>Emma's Beach Weather</h1>
+          <p>Sun, sand &amp; forecasts &bull; Boca Raton, FL</p>
         </div>
       </div>
       <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false">
@@ -30,6 +30,8 @@
   </header>
 
   <main class="container">
+    <section id="welcome-banner" class="welcome-banner" aria-live="polite"></section>
+
     <section class="search-panel" aria-label="Location search">
       <form id="search-form" autocomplete="off">
         <label for="city-input" class="visually-hidden">Search for a city</label>
@@ -81,7 +83,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Not an official FAU website &mdash; fan-built forecast app for the Owls community.</p>
+    <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Made with 🌊 for Emma.</p>
   </footer>
 
   <script src="js/app.js"></script>

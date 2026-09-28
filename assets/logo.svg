@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="FAU Weather owl logo">
-  <circle cx="60" cy="60" r="58" fill="#003366" stroke="#CC0000" stroke-width="4"/>
-  <g fill="#FFFFFF">
-    <ellipse cx="60" cy="66" rx="30" ry="28"/>
-    <circle cx="46" cy="58" r="12" fill="#FFFFFF"/>
-    <circle cx="74" cy="58" r="12" fill="#FFFFFF"/>
-    <circle cx="46" cy="58" r="6" fill="#003366"/>
-    <circle cx="74" cy="58" r="6" fill="#003366"/>
-    <polygon points="60,62 55,72 65,72" fill="#CC0000"/>
-    <path d="M30 44 Q38 24 50 40 Z" fill="#FFFFFF"/>
-    <path d="M90 44 Q82 24 70 40 Z" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Beach weather logo">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE9B8"/>
+      <stop offset="100%" stop-color="#FFD3A0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="url(#sky)" stroke="#FF6B5B" stroke-width="4"/>
+  <circle cx="60" cy="50" r="20" fill="#FFB238"/>
+  <g stroke="#0E7490" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M14 78 Q30 66 46 78 T78 78 T110 78"/>
+    <path d="M10 94 Q28 82 46 94 T82 94 T114 94"/>
   </g>
-  <text x="60" y="112" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="bold" fill="#FFFFFF">FAU</text>
 </svg>

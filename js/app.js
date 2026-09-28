@@ -43,7 +43,12 @@
     99: { desc: "Thunderstorm with heavy hail", icon: "⛈️" },
   };
 
+  const USER_NAME = "Emma";
+
+  const BEACH_DAY_CODES = new Set([0, 1, 2]);
+
   const els = {
+    welcomeBanner: document.getElementById("welcome-banner"),
     form: document.getElementById("search-form"),
     input: document.getElementById("city-input"),
     suggestions: document.getElementById("suggestions"),
@@ -71,6 +76,27 @@
 
   function weatherInfo(code) {
     return WEATHER_CODES[code] || { desc: "Unknown", icon: "❔" };
+  }
+
+  function timeGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  }
+
+  function renderWelcome(loc, data) {
+    const greeting = timeGreeting();
+    if (!data) {
+      els.welcomeBanner.innerHTML = `<span class="wave">🌊</span> ${greeting}, ${USER_NAME}!`;
+      return;
+    }
+    const code = data.current.weather_code;
+    const isBeachDay = BEACH_DAY_CODES.has(code) && data.current.temperature_2m >= (unit === "fahrenheit" ? 75 : 24);
+    const tail = isBeachDay
+      ? "looks like a perfect beach day ☀️"
+      : "here's your forecast for " + locationLabel(loc);
+    els.welcomeBanner.innerHTML = `<span class="wave">🌊</span> ${greeting}, ${USER_NAME} &mdash; ${tail}`;
   }
 
   function showStatus(message, isLoading) {
@@ -152,6 +178,7 @@
     els.precip.textContent = `${c.precipitation ?? 0} ${precipUnit}`;
 
     els.current.classList.remove("hidden");
+    renderWelcome(loc, data);
   }
 
   function renderForecast(data) {
@@ -297,5 +324,6 @@
     loadWeatherFor(currentLocation);
   });
 
+  renderWelcome(DEFAULT_LOCATION, null);
   loadWeatherFor(DEFAULT_LOCATION);
 })();

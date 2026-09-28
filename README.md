@@ -1,19 +1,20 @@
-# FAU Weather 🦉
+# Emma's Beach Weather 🌊
 
-A lightweight, FAU-themed weather app built with plain HTML/CSS/JS and the free
+A lightweight, beach-themed weather app built with plain HTML/CSS/JS and the free
 [Open-Meteo](https://open-meteo.com/) API (no API key or login required).
 
-Defaults to **Boca Raton, FL** (FAU's main campus) and lets you search any city
-or use your current location.
+Defaults to **Boca Raton, FL** and lets you search any city or use your
+current location.
 
 ## Features
 
+- Personalized welcome banner with a time-of-day greeting
 - Current conditions: temperature, feels-like, humidity, wind, precipitation
 - 7-day forecast
 - City search with autocomplete (Open-Meteo Geocoding API)
 - "Use my location" geolocation button
 - °F / °C toggle
-- FAU Blue (`#003366`) / FAU Red (`#CC0000`) theme
+- Beachy theme: ocean teal, coral sunset, sandy tones
 - No build step, no dependencies, no API keys — just static files
 
 ## Project structure
@@ -69,7 +70,6 @@ free and keyless.
 
 ## Notes on branding
 
-The logo in `assets/logo.svg` is an original placeholder mark in FAU's colors,
-not FAU's official trademarked logo. Swap it out for the official FAU logo
-file if you have appropriate usage rights, and this isn't an official
-university website.
+The logo in `assets/logo.svg` is an original sun-and-waves mark. The welcome
+message and theme are personalized for Emma — update `USER_NAME` in
+`js/app.js` to change who it greets.
